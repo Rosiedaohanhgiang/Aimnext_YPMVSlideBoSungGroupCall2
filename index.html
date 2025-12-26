@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Kỹ Năng Coaching Chiến Lược (Deep Dive)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CORE STYLES --- */
+        :root {
+            --primary: #FF9800;
+            --secondary: #009688;
+            --accent: #5C6BC0;
+            --bg-dark: #1a1a1a;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-dark);
+            color: #333;
+            overflow: hidden;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+        [contenteditable="true"] { user-select: text; }
+        h1, h2, h3, .heading-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        
+        /* --- STAGE SCALING --- */
+        #presentation-stage {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background: #1a1a1a;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            flex-shrink: 0;
+            border-radius: 12px;
+        }
+
+        /* --- UTILITIES --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .slide-container {
+            display: none; opacity: 0; width: 100%; height: 100%; position: absolute; top: 0; left: 0; transition: opacity 0.5s ease-in-out;
+        }
+        .slide-container.active { display: flex; opacity: 1; z-index: 10; }
+        .build-item { opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .build-item.visible { opacity: 1; transform: translateY(0); }
+        
+        /* --- SPOTLIGHT --- */
+        #spotlight {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+            background: radial-gradient(circle 150px at var(--x) var(--y), transparent 0%, rgba(0,0,0,0.95) 100%);
+            z-index: 9999; display: none;
+        }
+
+        /* --- BACKGROUNDS --- */
+        .bg-pattern-1 { background-image: radial-gradient(#e5e7eb 1px, transparent 1px); background-size: 20px 20px; }
+        [contenteditable="true"]:focus { outline: 2px dashed var(--primary); background: rgba(255,255,255,0.1); border-radius: 4px; padding: 2px; }
+    </style>
+</head>
+<body>
+
+    <div id="spotlight"></div>
+
+    <main id="presentation-stage">
+        <div id="cinematic-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-[1000ms] ease-in-out opacity-100"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60 z-0 pointer-events-none"></div>
+
+        <div id="deck" class="relative z-10 w-full h-full p-16 flex items-center justify-center">
+
+            <!-- SLIDE 1: TITLE -->
+            <div class="slide-container active flex flex-col justify-center items-center text-center text-white" data-bg="dark" data-notes="Chào mừng. Hôm nay chúng ta đi sâu vào bản chất và kỹ thuật Coaching thực chiến.">
+                <div class="mb-8 animate-pulse text-orange-400"><i class="fa-solid fa-users-viewfinder text-9xl drop-shadow-lg"></i></div>
+                <h2 class="text-2xl tracking-[0.6em] text-orange-400 mb-4 font-bold" contenteditable="true">CASE STUDY CHUYÊN SÂU</h2>
+                <h1 class="text-7xl font-bold mb-6 leading-tight drop-shadow-xl" contenteditable="true">KỸ NĂNG COACHING<br><span class="text-teal-400">THỰC CHIẾN</span></h1>
+                <p class="text-3xl font-light text-gray-200 mt-4" contenteditable="true">Từ Tư duy đến Bộ câu hỏi quyền lực</p>
+                <div class="mt-16 bg-white/10 px-8 py-3 rounded-full backdrop-blur-md border border-white/20"><span class="text-base font-bold tracking-widest text-white uppercase">HOÀNG THU MINH • QUẢN TRỊ HIỆU SUẤT</span></div>
+            </div>
+
+            <!-- SLIDE 2: DEFINITION (Deepened) -->
+            <div class="slide-container flex items-center justify-center" data-bg="light" data-notes="Phân biệt dựa trên hành vi cụ thể.">
+                <div class="glass-panel w-full h-full rounded-3xl p-12 flex gap-12 bg-white/95 text-gray-800 shadow-2xl relative">
+                    <div class="w-1/3 flex flex-col justify-center"><h2 class="text-6xl font-bold text-indigo-900 mb-8 border-l-8 border-orange-500 pl-8" contenteditable="true">ĐỊNH VỊ<br>HÀNH VI</h2><p class="text-2xl text-gray-600 pl-8">Bạn đang đóng vai trò gì khi nhân viên gặp vấn đề?</p></div>
+                    <div class="w-2/3 flex flex-col justify-center gap-6 pr-4">
+                        <div class="build-item bg-gray-50 p-6 rounded-2xl border-l-8 border-gray-400 shadow-md">
+                            <h3 class="text-3xl font-bold text-gray-700 mb-2"><i class="fa-solid fa-chalkboard-user mr-4"></i>TRAINING (Dạy)</h3>
+                            <p class="text-xl text-gray-600 ml-12">Hành vi: "Để chị chỉ cho em cách làm bước 1, bước 2..." (Instruction)</p>
+                        </div>
+                        <div class="build-item bg-teal-50 p-6 rounded-2xl border-l-8 border-teal-500 shadow-md">
+                            <h3 class="text-3xl font-bold text-teal-700 mb-2"><i class="fa-solid fa-hands-holding-circle mr-4"></i>MENTORING (Khuyên)</h3>
+                            <p class="text-xl text-gray-600 ml-12">Hành vi: "Hồi xưa ở tình huống này, chị đã làm thế này..." (Advice)</p>
+                        </div>
+                        <div class="build-item bg-orange-50 p-8 rounded-2xl border-l-8 border-orange-500 shadow-xl transform scale-105 border-2 border-orange-200">
+                            <h3 class="text-3xl font-bold text-orange-700 mb-3"><i class="fa-solid fa-lightbulb mr-4"></i>COACHING (Hỏi)</h3>
+                            <p class="text-2xl font-medium ml-12">Hành vi: "Theo em, đâu là mấu chốt của vấn đề này?" (Inquiry)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: 4 GOLDEN MOMENTS (Deepened) -->
+            <div class="slide-container flex flex-col justify-center items-center" data-bg="dark" data-notes="Dấu hiệu nhận biết cụ thể để coaching.">
+                <h2 class="text-5xl text-white font-bold mb-10 tracking-wide uppercase" contenteditable="true">4 Dấu hiệu <span class="text-orange-500">KÍCH HOẠT</span> Coaching</h2>
+                <div class="grid grid-cols-2 gap-8 w-full">
+                    <div class="build-item bg-gray-800/90 p-8 rounded-2xl border border-gray-600 hover:border-orange-500">
+                        <h3 class="text-2xl text-orange-400 font-bold mb-2">1. KHI NHÂN VIÊN DO DỰ</h3>
+                        <p class="text-gray-300 text-lg mb-2 italic">"Chị ơi, em nên chọn phương án A hay B?"</p>
+                        <p class="text-white font-bold">➔ Đừng chọn hộ. Hãy hỏi: "Tiêu chí lựa chọn của em là gì?"</p>
+                    </div>
+                    <div class="build-item bg-gray-800/90 p-8 rounded-2xl border border-gray-600 hover:border-teal-500">
+                        <h3 class="text-2xl text-teal-400 font-bold mb-2">2. KHI MUỐN ỦY QUYỀN</h3>
+                        <p class="text-gray-300 text-lg mb-2 italic">"Việc này khó quá em sợ làm sai."</p>
+                        <p class="text-white font-bold">➔ Đừng làm thay. Hãy hỏi: "Rủi ro lớn nhất em thấy là gì?"</p>
+                    </div>
+                    <div class="build-item bg-gray-800/90 p-8 rounded-2xl border border-gray-600 hover:border-indigo-500">
+                        <h3 class="text-2xl text-indigo-400 font-bold mb-2">3. KHI PHÁT TRIỂN KEY PERSON</h3>
+                        <p class="text-gray-300 text-lg mb-2 italic">Chuẩn bị cho vị trí quản lý.</p>
+                        <p class="text-white font-bold">➔ Hãy hỏi: "Nếu ở vị trí của chị, em sẽ nhìn bức tranh này thế nào?"</p>
+                    </div>
+                    <div class="build-item bg-gray-800/90 p-8 rounded-2xl border border-gray-600 hover:border-pink-500">
+                        <h3 class="text-2xl text-pink-400 font-bold mb-2">4. KHI CẦN SỬA ĐỔI HÀNH VI</h3>
+                        <p class="text-gray-300 text-lg mb-2 italic">Nhân viên làm tốt nhưng thái độ chưa tốt.</p>
+                        <p class="text-white font-bold">➔ Hãy hỏi: "Em nghĩ hành vi đó tác động thế nào đến team?"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: WHEN NOT TO USE (Refined Risks) -->
+            <div class="slide-container flex items-center justify-center" data-bg="dark" data-notes="Rủi ro khi dùng sai.">
+                <div class="w-full h-full flex gap-12">
+                    <div class="w-1/3 flex flex-col justify-center">
+                        <i class="fa-solid fa-triangle-exclamation text-9xl text-red-500 mb-8"></i>
+                        <h2 class="text-6xl font-bold text-white mb-6 uppercase">VÙNG CẤM<br><span class="text-red-500">COACHING</span></h2>
+                        <p class="text-2xl text-gray-400">Cố tình Coach sai thời điểm sẽ dẫn đến ức chế hoặc thảm họa.</p>
+                    </div>
+                    <div class="w-2/3 flex flex-col justify-center gap-6">
+                        <div class="build-item bg-red-900/40 p-8 rounded-2xl border-l-8 border-red-500">
+                            <h3 class="text-3xl text-red-200 font-bold mb-2">1. Người mới tinh (Fresher)</h3>
+                            <p class="text-xl text-gray-300 ml-10">Rủi ro: Nhân viên cảm thấy bị bỏ rơi, hoang mang vì không có kiến thức nền.</p>
+                        </div>
+                        <div class="build-item bg-red-900/40 p-8 rounded-2xl border-l-8 border-red-500">
+                            <h3 class="text-3xl text-red-200 font-bold mb-2">2. Khủng hoảng (Crisis)</h3>
+                            <p class="text-xl text-gray-300 ml-10">Rủi ro: Chậm trễ xử lý sự cố. Lúc cháy nhà không ai ngồi hỏi "Bạn cảm thấy ngọn lửa thế nào?".</p>
+                        </div>
+                        <div class="build-item bg-red-900/40 p-8 rounded-2xl border-l-8 border-red-500">
+                            <h3 class="text-3xl text-red-200 font-bold mb-2">3. Vi phạm đạo đức/Pháp luật</h3>
+                            <p class="text-xl text-gray-300 ml-10">Rủi ro: Dung túng cho sai phạm. Cần kỷ luật hoặc chỉnh đốn ngay lập tức.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: CASE STUDY INTRO -->
+            <div class="slide-container flex flex-col justify-center" data-bg="white" data-notes="Tình huống thực tế.">
+                <div class="w-full h-full bg-white rounded-3xl shadow-2xl overflow-hidden flex ring-1 ring-gray-200">
+                    <div class="w-1/3 bg-gray-50 p-12 border-r border-gray-200 flex flex-col justify-center relative">
+                        <div class="uppercase text-sm font-bold text-gray-400 mb-4 tracking-[0.2em]">CASE STUDY THỰC TẾ</div>
+                        <h2 class="text-4xl font-bold text-gray-800 mb-8">CÂU HỎI VỀ<br>QUYỀN LỢI</h2>
+                        <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 italic text-gray-600 mb-8 relative">
+                            <i class="fa-solid fa-quote-left text-5xl absolute -top-5 -left-4 text-orange-200 opacity-50"></i>
+                            <p class="relative z-10 text-xl leading-relaxed">"Một số công nhân viên đi làm vào ngày tiệc bộ phận (ngày nghỉ/buổi tối), có được tặng voucher giống như tiệc 20 năm (ngày thường 4/1) không?"</p>
+                        </div>
+                    </div>
+                    <div class="w-2/3 p-12 flex flex-col justify-center bg-pattern-1">
+                        <h3 class="text-3xl font-bold text-indigo-900 mb-10">LỰA CHỌN CỦA QUẢN LÝ</h3>
+                        <div class="space-y-8">
+                            <div class="build-item flex gap-6 opacity-60 grayscale">
+                                <div class="flex flex-col items-center"><div class="w-12 h-12 rounded-full bg-gray-300 text-white flex items-center justify-center font-bold text-xl">A</div><div class="h-full w-1 bg-gray-200 mt-2"></div></div>
+                                <div class="bg-white p-6 rounded-2xl w-full">
+                                    <h4 class="text-2xl font-bold text-gray-700">Cách cũ: Trả lời ngay</h4>
+                                    <p class="text-gray-600 mt-2 text-lg">"Không em nhé. Quy định là..." ➔ NV biết kết quả nhưng lần sau lại hỏi tiếp.</p>
+                                </div>
+                            </div>
+                            <div class="build-item flex gap-6">
+                                <div class="flex flex-col items-center"><div class="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-xl">B</div><div class="h-full w-1 bg-orange-200 mt-2"></div></div>
+                                <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100 w-full ring-2 ring-orange-200">
+                                    <h4 class="text-2xl font-bold text-orange-700">Mục tiêu của Minh: Rèn tư duy</h4>
+                                    <p class="text-gray-800 mt-3 font-medium text-xl">Không chỉ giải quyết câu hỏi "Có/Không", mà dạy nhân viên cách <strong class="text-orange-600">tự tìm quy luật</strong>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: ANALYSIS - STRENGTHS (Specific Evidence) -->
+            <div class="slide-container flex flex-col justify-center items-center" data-bg="light" data-notes="Điểm mạnh cụ thể.">
+                <h2 class="text-5xl font-bold text-green-700 mb-10 uppercase"><i class="fa-solid fa-thumbs-up mr-4"></i>Điểm Sáng Thực Tế</h2>
+                <div class="grid grid-cols-2 gap-8 w-full max-w-6xl">
+                    <div class="build-item bg-white p-8 rounded-2xl shadow-lg border-t-8 border-green-500">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">1. Tạo an toàn tâm lý</h3>
+                        <p class="text-gray-600 text-lg">Minh không gạt đi câu hỏi "ngớ ngẩn". Thái độ cởi mở khiến NV dám thắc mắc quyền lợi nhạy cảm.</p>
+                    </div>
+                    <div class="build-item bg-white p-8 rounded-2xl shadow-lg border-t-8 border-green-500">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">2. Kiên nhẫn "Gợi mở"</h3>
+                        <p class="text-gray-600 text-lg">Thay vì chốt ngay, Minh hỏi lái sang: "Tính chất tiệc khác nhau thế nào?". Đây là bước đệm thông minh.</p>
+                    </div>
+                    <div class="build-item bg-white p-8 rounded-2xl shadow-lg border-t-8 border-green-500">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">3. Kỹ thuật "Thoát vai"</h3>
+                        <p class="text-gray-600 text-lg">Minh nói rõ: "Đoạn này chị chia sẻ với tư cách người đi trước..." (Mentor) ➔ Giúp NV không bị lẫn lộn.</p>
+                    </div>
+                    <div class="build-item bg-white p-8 rounded-2xl shadow-lg border-t-8 border-green-500">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">4. Xử lý phát sinh trọn vẹn</h3>
+                        <p class="text-gray-600 text-lg">Với vấn đề "NV khó tham gia", Minh dùng đủ GROW: Goal (Muốn tham gia) -> Reality (Vướng ca) -> Option (Đổi ca) -> Will.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: ANALYSIS - IMPROVEMENTS (Actionable Fixes) -->
+            <div class="slide-container flex flex-col justify-center items-center" data-bg="light" data-notes="Giải pháp sửa lỗi cụ thể.">
+                <h2 class="text-5xl font-bold text-orange-700 mb-10 uppercase"><i class="fa-solid fa-wrench mr-4"></i>Điều chỉnh để Xuất sắc hơn</h2>
+                <div class="w-full max-w-5xl space-y-6">
+                    <div class="build-item bg-orange-50 p-8 rounded-2xl border-l-8 border-orange-500 flex gap-6 items-start shadow-md">
+                        <div class="text-4xl text-orange-400 font-bold">1</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Lỗi: Vào đề chưa rõ Mục tiêu (Goal)</h3>
+                            <p class="text-gray-600 text-lg"><strong>Sửa ngay:</strong> Bắt đầu bằng: "Hôm nay chị sẽ không trả lời ngay, mà chị muốn cùng em phân tích để lần sau em tự quyết định được. Em đồng ý không?"</p>
+                        </div>
+                    </div>
+                    <div class="build-item bg-orange-50 p-8 rounded-2xl border-l-8 border-orange-500 flex gap-6 items-start shadow-md">
+                        <div class="text-4xl text-orange-400 font-bold">2</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Lỗi: Còn "mớm" lời quá nhiều</h3>
+                            <p class="text-gray-600 text-lg"><strong>Sửa ngay:</strong> Thay vì giải thích dài dòng, hãy cắt ngắn và hỏi: "Ý em là sao?", "Còn gì nữa không?". Hãy chịu đựng khoảng lặng.</p>
+                        </div>
+                    </div>
+                    <div class="build-item bg-orange-50 p-8 rounded-2xl border-l-8 border-orange-500 flex gap-6 items-start shadow-md">
+                        <div class="text-4xl text-orange-400 font-bold">3</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Lỗi: Lạc trôi lộ trình</h3>
+                            <p class="text-gray-600 text-lg"><strong>Sửa ngay:</strong> Gọi tên bước đi. "Xong phần thực trạng rồi, giờ mình qua giải pháp nhé." (Sign-posting).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8: SCRIPT REALITY (With Annotations) -->
+            <div class="slide-container flex flex-col justify-center" data-bg="white" data-notes="Kịch bản mẫu.">
+                <div class="bg-indigo-900 text-white px-12 py-6 rounded-b-2xl absolute top-0 left-12 font-bold text-xl uppercase tracking-widest shadow-lg">Kịch bản: Rèn Tư Duy Phân Tích</div>
+                <h2 class="text-5xl font-bold text-gray-800 mb-12 mt-12 text-center">BƯỚC REALITY: TỰ PHÂN TÍCH</h2>
+                
+                <div class="w-full max-w-4xl mx-auto space-y-8">
+                    <!-- Dialogue 1 -->
+                    <div class="build-item flex gap-6 items-start">
+                        <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600 flex-shrink-0">NV</div>
+                        <div class="bg-gray-100 p-6 rounded-2xl shadow-sm">
+                            <p class="text-xl text-gray-800">"Tiệc này có voucher như hôm 4/1 không chị?"</p>
+                        </div>
+                    </div>
+                    <!-- Dialogue 2 -->
+                    <div class="build-item flex gap-6 items-start flex-row-reverse">
+                        <div class="w-16 h-16 rounded-full bg-orange-500 flex items-center justify-center font-bold text-white flex-shrink-0 shadow-lg">Q.LÝ</div>
+                        <div class="bg-orange-50 p-6 rounded-2xl shadow-md border border-orange-100 relative">
+                            <p class="text-xl text-gray-800 font-medium">"Trước khi chị trả lời, theo em <span class="text-orange-600 font-bold">TÍNH CHẤT</span> của tiệc 20 năm (4/1) và tiệc bộ phận lần này khác nhau thế nào?"</p>
+                            <span class="absolute -right-40 top-4 bg-orange-200 text-orange-900 text-sm px-3 py-1 rounded-full font-bold">◄ So sánh bối cảnh</span>
+                        </div>
+                    </div>
+                    <!-- Dialogue 3 -->
+                    <div class="build-item flex gap-6 items-start flex-row-reverse">
+                        <div class="w-16 h-16 rounded-full bg-orange-500 flex items-center justify-center font-bold text-white flex-shrink-0 shadow-lg">Q.LÝ</div>
+                        <div class="bg-orange-50 p-6 rounded-2xl shadow-md border border-orange-100 relative">
+                            <p class="text-xl text-gray-800 font-medium">"Đúng rồi. Vậy xét về chính sách, công ty thường ưu tiên ngân sách voucher cho <span class="text-orange-600 font-bold">TRƯỜNG HỢP</span> nào?"</p>
+                            <span class="absolute -right-40 top-4 bg-orange-200 text-orange-900 text-sm px-3 py-1 rounded-full font-bold">◄ Rút ra quy luật</span>
+                        </div>
+                    </div>
+                    <!-- Dialogue 4 -->
+                    <div class="build-item flex gap-6 items-start">
+                        <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600 flex-shrink-0">NV</div>
+                        <div class="bg-gray-100 p-6 rounded-2xl shadow-sm">
+                            <p class="text-xl text-gray-800">"Dạ chắc là ngày làm việc toàn công ty. Vậy chắc lần này không có." <i class="fa-solid fa-check text-green-500 ml-2"></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9: SCRIPT OPTION/WILL (With Annotations) -->
+            <div class="slide-container flex flex-col justify-center" data-bg="white" data-notes="Kịch bản chốt.">
+                <div class="bg-teal-700 text-white px-12 py-6 rounded-b-2xl absolute top-0 left-12 font-bold text-xl uppercase tracking-widest shadow-lg">Kịch bản: Neo Tư Duy</div>
+                <h2 class="text-5xl font-bold text-gray-800 mb-12 mt-12 text-center">CHỐT BÀI HỌC (KEY TAKEAWAY)</h2>
+                
+                <div class="w-full max-w-4xl mx-auto space-y-8">
+                    <!-- Dialogue 1 -->
+                    <div class="build-item flex gap-6 items-start flex-row-reverse">
+                        <div class="w-16 h-16 rounded-full bg-teal-600 flex items-center justify-center font-bold text-white flex-shrink-0 shadow-lg">Q.LÝ</div>
+                        <div class="bg-teal-50 p-6 rounded-2xl shadow-md border border-teal-100 relative">
+                            <p class="text-xl text-gray-800 font-medium">"Chính xác. Lần sau, trước khi hỏi, em hãy <span class="text-teal-700 font-bold">TỰ PHÂN TÍCH</span> theo cách này nhé. Đó là tư duy của người quản lý."</p>
+                            <span class="absolute -right-40 top-4 bg-teal-200 text-teal-900 text-sm px-3 py-1 rounded-full font-bold">◄ Khen ngợi & Định danh</span>
+                        </div>
+                    </div>
+                    <!-- Dialogue 2 -->
+                    <div class="build-item flex gap-6 items-start flex-row-reverse">
+                        <div class="w-16 h-16 rounded-full bg-teal-600 flex items-center justify-center font-bold text-white flex-shrink-0 shadow-lg">Q.LÝ</div>
+                        <div class="bg-teal-50 p-6 rounded-2xl shadow-md border border-teal-100 relative">
+                            <p class="text-xl text-gray-800 font-medium">"Vậy để tự phân tích được như hôm nay, từ ngày mai khi gặp vấn đề mới em sẽ làm bước gì đầu tiên?"</p>
+                            <span class="absolute -right-40 top-4 bg-teal-200 text-teal-900 text-sm px-3 py-1 rounded-full font-bold">◄ Cam kết hành động (Will)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10: GROW QUESTIONS (ACTIONABLE) -->
+            <div class="slide-container flex flex-col justify-center items-center" data-bg="dark" data-notes="Bộ câu hỏi mẫu để dùng ngay.">
+                <h2 class="text-5xl text-white font-bold mb-10 tracking-wider">BỘ CÂU HỎI MẪU <span class="text-teal-400">G.R.O.W</span></h2>
+                <p class="text-xl text-gray-300 mb-8">Copy & Paste vào cuộc hội thoại của bạn.</p>
+                <div class="flex w-full justify-between items-start relative px-6 gap-4">
+                    <div class="build-item flex flex-col items-center w-1/4 bg-indigo-900/50 p-6 rounded-xl border border-indigo-500/30">
+                        <div class="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center text-3xl font-bold text-white mb-4 shadow-lg">G</div>
+                        <h3 class="text-xl text-indigo-300 font-bold mb-3">MỤC TIÊU</h3>
+                        <ul class="text-left text-gray-300 text-sm space-y-2">
+                            <li>• "Em muốn đạt được kết quả cụ thể nào sau buổi nói chuyện này?"</li>
+                            <li>• "Bức tranh thành công của dự án này trông như thế nào?"</li>
+                        </ul>
+                    </div>
+                    <div class="build-item flex flex-col items-center w-1/4 bg-teal-900/50 p-6 rounded-xl border border-teal-500/30">
+                        <div class="w-16 h-16 rounded-full bg-teal-600 flex items-center justify-center text-3xl font-bold text-white mb-4 shadow-lg">R</div>
+                        <h3 class="text-xl text-teal-300 font-bold mb-3">THỰC TRẠNG</h3>
+                        <ul class="text-left text-gray-300 text-sm space-y-2">
+                            <li>• "Chuyện gì đang thực sự diễn ra? Ai/Cái gì liên quan?"</li>
+                            <li>• "Em đã thử làm những gì rồi? Kết quả ra sao?"</li>
+                        </ul>
+                    </div>
+                    <div class="build-item flex flex-col items-center w-1/4 bg-orange-900/50 p-6 rounded-xl border border-orange-500/30">
+                        <div class="w-16 h-16 rounded-full bg-orange-600 flex items-center justify-center text-3xl font-bold text-white mb-4 shadow-lg">O</div>
+                        <h3 class="text-xl text-orange-300 font-bold mb-3">GIẢI PHÁP</h3>
+                        <ul class="text-left text-gray-300 text-sm space-y-2">
+                            <li>• "Nếu không có rào cản về tiền/người, em sẽ làm gì?"</li>
+                            <li>• "Còn cách nào khác nữa không? (And what else?)"</li>
+                        </ul>
+                    </div>
+                    <div class="build-item flex flex-col items-center w-1/4 bg-pink-900/50 p-6 rounded-xl border border-pink-500/30">
+                        <div class="w-16 h-16 rounded-full bg-pink-600 flex items-center justify-center text-3xl font-bold text-white mb-4 shadow-lg">W</div>
+                        <h3 class="text-xl text-pink-300 font-bold mb-3">CAM KẾT</h3>
+                        <ul class="text-left text-gray-300 text-sm space-y-2">
+                            <li>• "Bước nhỏ nhất em có thể làm ngay ngày mai là gì?"</li>
+                            <li>• "Trên thang điểm 1-10, em cam kết bao nhiêu phần trăm?"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 11: INTENTIONAL QUESTIONING - 3 SECONDS (Actionable) -->
+            <div class="slide-container flex flex-col justify-center items-center" data-bg="light" data-notes="Quy tắc 3 giây trước khi hỏi.">
+                <h2 class="text-5xl font-bold text-indigo-900 mb-12 uppercase">QUY TẮC "3 GIÂY" TRƯỚC KHI HỎI</h2>
+                <p class="text-2xl text-gray-600 mb-12">Dừng lại và tự check trong đầu:</p>
+                
+                <div class="flex gap-8 items-center w-full max-w-5xl">
+                    <div class="build-item w-1/3 bg-white p-8 rounded-3xl shadow-xl border-t-8 border-gray-400 opacity-60">
+                        <h3 class="text-2xl font-bold text-gray-500 mb-4">GIÂY 1: CHECK DATA</h3>
+                        <p class="text-lg text-gray-600">"Mình hỏi để lấy thông tin (Yes/No) hay để NV suy nghĩ?"</p>
+                        <p class="text-red-500 font-bold mt-2">➔ Nếu chỉ lấy tin, đừng Coach.</p>
+                    </div>
+                    
+                    <div class="text-4xl text-gray-300"><i class="fa-solid fa-arrow-right"></i></div>
+                    
+                    <div class="build-item w-1/3 bg-white p-8 rounded-3xl shadow-xl border-t-8 border-orange-500 transform scale-110">
+                        <h3 class="text-2xl font-bold text-orange-600 mb-4">GIÂY 2: CHECK EGO</h3>
+                        <p class="text-lg text-gray-800">"Mình có đang 'gài' giải pháp của mình vào câu hỏi không?"</p>
+                        <p class="text-orange-600 font-bold mt-2">➔ Vd: "Em ko nghĩ cách A tốt hơn à?" (SAI)</p>
+                    </div>
+
+                    <div class="text-4xl text-gray-300"><i class="fa-solid fa-arrow-right"></i></div>
+
+                    <div class="build-item w-1/3 bg-white p-8 rounded-3xl shadow-xl border-t-8 border-green-500">
+                        <h3 class="text-2xl font-bold text-green-600 mb-4">GIÂY 3: RE-PHRASE</h3>
+                        <p class="text-lg text-gray-600">"Chuyển câu hỏi 'Tại sao' thành 'Cái gì/Thế nào'?"</p>
+                        <p class="text-green-600 font-bold mt-2">➔ Hỏi mở rộng.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 12: TRANSFORMING QUESTIONS (Deepened) -->
+            <div class="slide-container flex flex-col justify-center items-center" data-bg="white" data-notes="Chuyển đổi câu hỏi cụ thể.">
+                <h2 class="text-5xl font-bold text-gray-800 mb-10">TỪ ĐÓNG SANG MỞ (VÍ DỤ CỤ THỂ)</h2>
+                <div class="w-full max-w-6xl grid grid-cols-1 gap-6">
+                    <!-- Row 1 -->
+                    <div class="build-item grid grid-cols-3 gap-0 rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                        <div class="bg-gray-100 p-6 flex items-center font-bold text-gray-500 uppercase justify-center">Khi NV gặp khó</div>
+                        <div class="bg-red-50 p-6 flex flex-col justify-center text-red-700 border-r border-gray-200">
+                            <i class="fa-solid fa-xmark mb-2"></i>
+                            <span class="font-medium">"Có chuyện gì thế?"</span>
+                            <span class="text-sm opacity-70">(Chung chung, dễ trả lời cho qua)</span>
+                        </div>
+                        <div class="bg-green-50 p-6 flex flex-col justify-center text-green-800 font-bold">
+                            <i class="fa-solid fa-check mb-2"></i>
+                            <span>"Yếu tố nào đang làm em lo lắng nhất lúc này?"</span>
+                            <span class="text-sm opacity-70 text-green-700 font-normal">(Buộc gọi tên vấn đề)</span>
+                        </div>
+                    </div>
+                    <!-- Row 2 -->
+                    <div class="build-item grid grid-cols-3 gap-0 rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                        <div class="bg-gray-100 p-6 flex items-center font-bold text-gray-500 uppercase justify-center">Khi trễ Deadline</div>
+                        <div class="bg-red-50 p-6 flex flex-col justify-center text-red-700 border-r border-gray-200">
+                            <i class="fa-solid fa-xmark mb-2"></i>
+                            <span class="font-medium">"Tại sao lại trễ?"</span>
+                            <span class="text-sm opacity-70">(Dễ gây đổ lỗi, lý do khách quan)</span>
+                        </div>
+                        <div class="bg-green-50 p-6 flex flex-col justify-center text-green-800 font-bold">
+                            <i class="fa-solid fa-check mb-2"></i>
+                            <span>"Rào cản lớn nhất ngăn em hoàn thành đúng hạn là gì?"</span>
+                            <span class="text-sm opacity-70 text-green-700 font-normal">(Tập trung vào vật cản để gỡ)</span>
+                        </div>
+                    </div>
+                    <!-- Row 3 -->
+                    <div class="build-item grid grid-cols-3 gap-0 rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                        <div class="bg-gray-100 p-6 flex items-center font-bold text-gray-500 uppercase justify-center">Khi tìm giải pháp</div>
+                        <div class="bg-red-50 p-6 flex flex-col justify-center text-red-700 border-r border-gray-200">
+                            <i class="fa-solid fa-xmark mb-2"></i>
+                            <span class="font-medium">"Em định làm gì?"</span>
+                            <span class="text-sm opacity-70">(NV sẽ trả lời theo lối mòn)</span>
+                        </div>
+                        <div class="bg-green-50 p-6 flex flex-col justify-center text-green-800 font-bold">
+                            <i class="fa-solid fa-check mb-2"></i>
+                            <span>"Nếu em là Giám đốc, em sẽ xử lý việc này thế nào?"</span>
+                            <span class="text-sm opacity-70 text-green-700 font-normal">(Kích thích tư duy cao hơn)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 13: DRILL-DOWN (With Triggers) -->
+            <div class="slide-container flex items-center" data-bg="white" data-notes="Khi nào thì dùng câu hỏi nào.">
+                <div class="w-full grid grid-cols-2 gap-16">
+                    <div class="flex flex-col justify-center">
+                        <h2 class="text-6xl font-bold text-gray-800 mb-8 leading-tight">MŨI KHOAN<br><span class="text-orange-500">3 LỚP</span></h2>
+                        <p class="text-2xl text-gray-600 mb-10">Dùng đúng loại mũi khoan cho đúng lớp đất.</p>
+                        <div class="flex flex-col gap-4">
+                            <div class="bg-blue-100 p-4 rounded-lg font-bold text-blue-800">1. Lớp Bề Mặt (Dữ liệu)</div>
+                            <div class="bg-blue-400 p-4 rounded-lg font-bold text-white ml-8">2. Lớp Thách Thức (Niềm tin)</div>
+                            <div class="bg-blue-700 p-4 rounded-lg font-bold text-white ml-16">3. Lớp Cốt Lõi (Giải pháp)</div>
+                        </div>
+                    </div>
+                    <div class="space-y-6 flex flex-col justify-center">
+                        <div class="build-item p-8 bg-white rounded-2xl shadow-xl border-l-8 border-blue-300">
+                            <h4 class="text-blue-400 font-bold uppercase mb-2 text-sm tracking-wider">KHI NV DÙNG TỪ CHUNG CHUNG ("Khó", "Chậm")</h4>
+                            <p class="text-2xl font-medium text-gray-800">"Cụ thể 'khó' ở đây là: thiếu người, thiếu tiền hay thiếu kỹ năng?"</p>
+                        </div>
+                        <div class="build-item p-8 bg-white rounded-2xl shadow-xl border-l-8 border-blue-500">
+                            <h4 class="text-blue-600 font-bold uppercase mb-2 text-sm tracking-wider">KHI NV KHẲNG ĐỊNH CHẮC NỊCH ("Chỉ có cách này thôi")</h4>
+                            <p class="text-2xl font-medium text-gray-800">"Điều gì làm em tin rằng đó là giải pháp duy nhất?"</p>
+                        </div>
+                        <div class="build-item p-8 bg-white rounded-2xl shadow-xl border-l-8 border-blue-800">
+                            <h4 class="text-blue-800 font-bold uppercase mb-2 text-sm tracking-wider">KHI NV ĐÃ HẾT Ý TƯỞNG</h4>
+                            <p class="text-2xl font-medium text-gray-800">"Và còn gì nữa không? (And What Else?)"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 14: THE WHY TRAP (Alternatives) -->
+            <div class="slide-container flex items-center justify-center" data-bg="dark" data-notes="Thay thế 'Tại sao' bằng gì.">
+                <div class="text-center max-w-5xl">
+                    <i class="fa-solid fa-triangle-exclamation text-8xl text-yellow-500 mb-8"></i>
+                    <h2 class="text-6xl font-bold text-white mb-12">THAY THẾ "TẠI SAO?" (WHY)</h2>
+                    <p class="text-gray-300 text-xl mb-12">"Tại sao" kích hoạt não phòng thủ. Hãy dùng các từ sau để kích hoạt não tư duy:</p>
+                    
+                    <div class="grid grid-cols-3 gap-8 text-left">
+                        <div class="build-item bg-gray-800 p-8 rounded-2xl border border-gray-600">
+                            <h3 class="text-teal-400 font-bold text-3xl mb-4">CÁI GÌ (WHAT)</h3>
+                            <p class="text-white text-lg">"Cái gì khiến em nghĩ vậy?"</p>
+                            <p class="text-white text-lg">"Rào cản gì đang ngăn cản em?"</p>
+                        </div>
+                        <div class="build-item bg-gray-800 p-8 rounded-2xl border border-gray-600">
+                            <h3 class="text-teal-400 font-bold text-3xl mb-4">THẾ NÀO (HOW)</h3>
+                            <p class="text-white text-lg">"Việc này diễn ra thế nào?"</p>
+                            <p class="text-white text-lg">"Em định triển khai thế nào?"</p>
+                        </div>
+                        <div class="build-item bg-gray-800 p-8 rounded-2xl border border-gray-600">
+                            <h3 class="text-teal-400 font-bold text-3xl mb-4">KHI NÀO (WHEN)</h3>
+                            <p class="text-white text-lg">"Khi nào thì vấn đề này xuất hiện?"</p>
+                            <p class="text-white text-lg">"Lần gần nhất nó xảy ra là khi nào?"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 15: PRACTICAL EXAMPLE - MARKETING (Deepened) -->
+            <div class="slide-container flex flex-col justify-center items-center" data-bg="light" data-notes="Ví dụ áp dụng với mục đích rõ ràng.">
+                <h2 class="text-5xl font-bold text-gray-800 mb-10">THỰC CHIẾN: XỬ LÝ PHÀN NÀN</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 italic text-gray-600 mb-10 text-2xl w-full max-w-4xl text-center">
+                    NV: "Em không thể làm việc với team Marketing được, họ rất chậm chạp."
+                </div>
+                
+                <div class="grid grid-cols-3 gap-6 w-full max-w-6xl">
+                    <div class="build-item bg-indigo-50 p-8 rounded-2xl border-t-8 border-indigo-500 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="font-bold text-indigo-800 mb-3 text-sm tracking-wider uppercase">BƯỚC 1: LÀM RÕ DỮ LIỆU</div>
+                            <p class="text-gray-700 text-xl font-medium">"Định nghĩa 'chậm chạp' của em là gì? Chậm bao lâu? Chậm ở khâu nào?"</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-indigo-200 text-sm text-indigo-600 italic">➔ Mục đích: Loại bỏ cảm xúc, tập trung vào sự thật (Fact).</div>
+                    </div>
+                    <div class="build-item bg-indigo-50 p-8 rounded-2xl border-t-8 border-indigo-500 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="font-bold text-indigo-800 mb-3 text-sm tracking-wider uppercase">BƯỚC 2: TÌM ĐIỂM NGHẼN</div>
+                            <p class="text-gray-700 text-xl font-medium">"Việc chậm đó ảnh hưởng cụ thể đến KPI nào của em tuần này?"</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-indigo-200 text-sm text-indigo-600 italic">➔ Mục đích: Xác định mức độ nghiêm trọng.</div>
+                    </div>
+                    <div class="build-item bg-indigo-50 p-8 rounded-2xl border-t-8 border-indigo-500 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="font-bold text-indigo-800 mb-3 text-sm tracking-wider uppercase">BƯỚC 3: ĐỔI GÓC NHÌN</div>
+                            <p class="text-gray-700 text-xl font-medium">"Nếu em là Marketing, em sẽ cần gì từ phía chúng ta để làm nhanh hơn?"</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-indigo-200 text-sm text-indigo-600 italic">➔ Mục đích: Chuyển từ đổ lỗi sang hợp tác giải quyết.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- UI CONTROLS (Floating) -->
+    <div id="ui-controls" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-full max-w-[1280px] flex flex-col gap-4 px-8 z-50">
+        <div class="w-full h-1.5 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm"><div id="progress-bar" class="h-full bg-orange-500 transition-all duration-300 w-0 shadow-[0_0_10px_#f97316]"></div></div>
+        <div class="flex justify-between items-center text-gray-300 text-sm font-mono bg-black/60 backdrop-blur-md p-3 rounded-xl border border-white/10 shadow-lg">
+            <div class="flex gap-4 items-center pl-2"><span id="slide-counter" class="font-bold text-white">01 / 15</span><span class="text-xs text-gray-500">|</span><span class="text-xs text-gray-400 uppercase tracking-wider">Rosie Đào Hạnh Giang</span></div>
+            <div class="flex gap-2"><button id="btn-prev" class="px-4 py-2 hover:bg-white/20 rounded-lg transition-all flex items-center gap-2 font-bold text-white"><i class="fa-solid fa-chevron-left"></i> TRƯỚC</button><button id="btn-next" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all flex items-center gap-2 font-bold text-white border border-white/10">TIẾP THEO <i class="fa-solid fa-chevron-right"></i></button></div>
+            <div class="flex gap-2 items-center pr-2">
+                <button onclick="toggleFullScreen()" class="hover:text-white hover:bg-white/10 rounded-lg transition-colors p-2" title="Toàn màn hình (F)"><i class="fa-solid fa-expand text-lg"></i></button>
+                <button onclick="openSpeakerMode()" class="hover:text-white hover:bg-white/10 rounded-lg transition-colors p-2" title="Chế độ Diễn giả (P)"><i class="fa-solid fa-note-sticky text-lg"></i></button>
+                <button onclick="toggleSpotlight()" class="hover:text-white hover:bg-white/10 rounded-lg transition-colors p-2" title="Đèn sân khấu (S)"><i class="fa-solid fa-bullseye text-lg"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide-container');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const bgLayer = document.getElementById('cinematic-bg');
+        const stage = document.getElementById('presentation-stage');
+        let isSpotlightActive = false;
+
+        function init() { updateSlide(); window.addEventListener('resize', resizeApp); resizeApp(); }
+        function resizeApp() {
+            const scale = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+            stage.style.transform = `scale(${scale * 0.95})`;
+        }
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlideIndex) {
+                    slide.classList.add('active');
+                    const builds = slide.querySelectorAll('.build-item');
+                    builds.forEach(b => b.classList.remove('visible'));
+                    updateBackground(slide.dataset.bg);
+                } else { slide.classList.remove('active'); }
+            });
+            progressBar.style.width = `${((currentSlideIndex + 1) / slides.length) * 100}%`;
+            slideCounter.textContent = `${String(currentSlideIndex + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        }
+        function updateBackground(type) {
+            const bgs = {
+                'white': 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+                'dark': 'linear-gradient(to bottom, #0f2027, #203a43, #2c5364)',
+                'light': 'linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%)'
+            };
+            bgLayer.style.backgroundImage = bgs[type] || bgs['dark'];
+        }
+        function next() {
+            const activeSlide = slides[currentSlideIndex];
+            const hiddenBuilds = activeSlide.querySelectorAll('.build-item:not(.visible)');
+            if (hiddenBuilds.length > 0) { hiddenBuilds[0].classList.add('visible'); }
+            else if (currentSlideIndex < slides.length - 1) { currentSlideIndex++; updateSlide(); }
+        }
+        function prev() { if (currentSlideIndex > 0) { currentSlideIndex--; updateSlide(); } }
+        
+        document.getElementById('btn-next').addEventListener('click', next);
+        document.getElementById('btn-prev').addEventListener('click', prev);
+        document.addEventListener('keydown', (e) => {
+            if (e.target.isContentEditable) return;
+            if (e.key === 'ArrowRight') next();
+            if (e.key === 'ArrowLeft') prev();
+            if (e.key === 'f' || e.key === 'F') toggleFullScreen();
+            if (e.key === 's' || e.key === 'S') toggleSpotlight();
+            if (e.key === 'p' || e.key === 'P') openSpeakerMode();
+        });
+
+        function toggleSpotlight() {
+            isSpotlightActive = !isSpotlightActive;
+            document.getElementById('spotlight').style.display = isSpotlightActive ? 'block' : 'none';
+        }
+        document.addEventListener('mousemove', (e) => {
+            if (isSpotlightActive) {
+                const spot = document.getElementById('spotlight');
+                spot.style.setProperty('--x', e.clientX + 'px');
+                spot.style.setProperty('--y', e.clientY + 'px');
+            }
+        });
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); }
+            else { if (document.exitFullscreen) { document.exitFullscreen(); } }
+        }
+        function openSpeakerMode() {
+            const currentSlide = slides[currentSlideIndex];
+            const notes = currentSlide.dataset.notes || "Không có ghi chú.";
+            const w = window.open("", "SpeakerMode", "width=600,height=400");
+            if(w) {
+                w.document.write(`<html><body style="font-family:sans-serif;padding:30px;background:#222;color:#fff;">
+                <h2 style="color:#FF9800;">Slide ${currentSlideIndex + 1}</h2><hr><div style="font-size:24px;line-height:1.6;margin-top:20px;">${notes}</div></body></html>`);
+            } else { alert("Vui lòng cho phép Popup."); }
+        }
+        init();
+    </script>
+</body>
+</html>
